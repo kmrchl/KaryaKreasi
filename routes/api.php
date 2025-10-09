@@ -19,11 +19,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('products', ProductController::class);
     
     // logout
-    Route::post('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
 
 // route login (tidak perlu auth)
-Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login']);
 
 // Route::get('/test', function () {
 //     return response()->json(['message' => 'API works!']);

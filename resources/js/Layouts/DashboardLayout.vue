@@ -4,22 +4,28 @@ import { Link } from '@inertiajs/vue3'
 import { router } from '@inertiajs/vue3'
 
 const sidebarOpen = ref(true)
-const logout = async () => {
-  const token = localStorage.getItem('token')
 
-  try {
-    await axios.post('/logout', {}, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-  } catch (e) {
-    console.error(e)
-  }
-
-  localStorage.removeItem('token')
-  router.visit('/login')
+const logout = () => {
+  router.post(route('logout'), {
+    onSuccess: () => router.visit('/login')
+  })
 }
+// const logout = async () => {
+//   const token = localStorage.getItem('token')
+
+//   try {
+//     await axios.post('/logout', {}, {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     })
+//   } catch (e) {
+//     console.error(e)
+//   }
+
+//   localStorage.removeItem('token')
+//   router.visit('/login')
+// }
 </script>
 
 <template>

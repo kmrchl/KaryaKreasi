@@ -5,31 +5,45 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
 
+        // coba login user
         if (!Auth::attempt($credentials)) {
-            return response()->json(['status' => false, 'message' => 'Email atau password salah!'], 401);
+            return back()->withErrors([
+                'email' => 'Email atau password salah.',
+            ])->onlyInput('email');
         }
 
-        $user = Auth::user();
-        $token = $user->createToken('auth_token')->plainTextToken;
+        // regenerate session 
+        $request->session()->regenerate();
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Login sukses!',
-            'token' => $token,
-            'user' => $user
-        ]);
+        // redirect ke dashboard admin
+        return redirect()->intended('/admin/dashboard');
     }
 
-    public function logout(Request $request)
+    public function logout(): RedirectResponse
     {
-        $request->user()->tokens()->delete();
-        return response()->json(['status' => true, 'message' => 'Logout berhasil!']);
+        Auth::logout();
+
+        // Hapus session
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+
+        // Redirect ke halaman login
+        return redirect('/login');
+    }
+
+    public function showLoginForm()
+    {
+        return inertia('Auth/Login');
     }
 }

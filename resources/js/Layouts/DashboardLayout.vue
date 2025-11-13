@@ -37,7 +37,7 @@ const logout = () => {
       <nav class="space-y-2">
         <Link href="/admin/dashboard" class="block px-4 py-2 rounded hover:bg-gray-700">Dashboard</Link>
         <Link href="/admin/produk" class="block px-4 py-2 rounded hover:bg-gray-700">Katalog Produk</Link>
-        <Link href="/admin/form" class="block px-4 py-2 rounded hover:bg-gray-700">Form Masuk</Link>
+        <Link href="/admin/produk/create" class="block px-4 py-2 rounded hover:bg-gray-700">Tambah Produk</Link>
       </nav>
 
       <button @click="logout" class="mt-auto bg-red-600 px-3 py-2 rounded-lg hover:bg-red-700 transition">

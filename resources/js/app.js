@@ -1,11 +1,13 @@
 import '../css/app.css';
 import './bootstrap';
 import 'aos/dist/aos.css';
-import axios from 'axios';
+import axios from 'axios'
+// import axios from 'axios';
+// import { createApp } from 'vue'
+import { createApp, h } from 'vue';
 import AOS from 'aos';
 import router from './router'
 
-import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
@@ -20,17 +22,8 @@ axios.interceptors.request.use(config => {
   return config
 })
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Karya Kreasi';
 
-createInertiaApp({
-  resolve: (name) => require(`./Pages/${name}.vue`),
-  setup({ el, App, props, plugin }) {
-    createApp({ render: () => h(App, props) })
-      .use(plugin)
-      .use(router) // <-- pakai router di sini
-      .mount(el)
-  },
-})
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
 use App\Http\Resources\ProductResource;
 use App\Http\Controllers\Controller;
-use App\Models\Produk;
 use Illuminate\Http\Request;
+use App\Models\Produk;
 
 class ProductController extends Controller
 {
@@ -38,7 +39,7 @@ class ProductController extends Controller
 
         $produk = Produk::create($validated);
 
-        return new ProductResource($produk);
+        return new ProductResource($produk);  
     }
 
 }

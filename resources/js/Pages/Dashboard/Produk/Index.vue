@@ -6,13 +6,13 @@ import DashboardLayout from '@/Layouts/DashboardLayout.vue'
 const produkList = ref([])
 
 const getProduk = async () => {
-  const res = await axios.get('/products')
+  const res = await axios.get('/produk')
   produkList.value = res.data.data // karena kamu pakai ProductResource::collection()
 }
 
 const deleteProduk = async (id) => {
   if (confirm('Yakin mau hapus produk ini?')) {
-    await axios.delete(`/products/${id}`)
+    await axios.delete(`/produk/${id}`)
     await getProduk()
   }
 }

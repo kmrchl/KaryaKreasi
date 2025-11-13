@@ -34,12 +34,12 @@ onMounted(async () => {
 
 const loadStats = async () => {
   try {
-    const produkRes = await axios.get('/products')
+    const produkRes = await axios.get('/produk')
     totalProduk.value = produkRes.data.data.length
 
-    // misal nanti endpoint pesan di /api/messages
-    const pesanRes = await axios.get('/messages').catch(() => ({ data: { data: [] } }))
-    totalPesan.value = pesanRes.data.data.length
+    // // misal nanti endpoint pesan di /api/messages
+    // const pesanRes = await axios.get('/messages').catch(() => ({ data: { data: [] } }))
+    // totalPesan.value = pesanRes.data.data.length
   } catch (err) {
     console.error(err)
   }
@@ -53,7 +53,7 @@ onMounted(loadStats)
     <div class="space-y-6">
       <!-- Judul -->
       <div>
-        <h1 class="text-3xl font-bold text-gray-800">Selamat datang, Admin 👋</h1>
+        <h1 class="text-3xl font-bold text-gray-800">Selamat datang, Teteh 👋</h1>
         <p class="text-gray-500">Berikut ringkasan data sistem kamu hari ini.</p>
       </div>
 
@@ -74,7 +74,6 @@ onMounted(loadStats)
           <p class="text-3xl font-bold text-amber-500 mt-2">Aktif</p>
         </div>
       </div> -->
-
       <!-- Quick Links -->
       <div class="bg-white p-6 rounded-2xl shadow">
         <h2 class="text-xl font-bold mb-4">Aksi Cepat</h2>

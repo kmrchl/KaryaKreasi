@@ -1,31 +1,40 @@
-<?php
+<?php 
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Produk extends Model
 {
     use HasFactory;
+
     protected $table = 'produk';
+    protected $primaryKey = 'id_produk';
+    public $timestamps = true;
+
     protected $fillable = [
-        'produk', 'deskripsi', 'harga', 'gambar'
+        'id_kategori',
+        'produk',
+        'deskripsi',
+        'harga',
+        'gambar',
     ];
 
-    // Optional: accessor supaya front-end dapat image_url langsung
+    // Accessor biar langsung dapet URL gambar
     protected $appends = ['gambar_url'];
 
-    public function getImageUrlAttribute()
+    public function getGambarUrlAttribute()
     {
-        if (!$this->gambar) return null;
-
-        // kalau gambar sudah berupa URL (http...), kembalikan apa adanya
-        if (filter_var($this->gambar, FILTER_VALIDATE_URL)) {
-            return $this->gambar;
+        if (!$this->gambar) {
+            return null;
         }
+        return Storage::url($this->gambar);
+    }
 
-        // kalau path dari storage (public disk)
-        return asset('storage/' . $this->gambar);
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'id_kategori');
     }
 }

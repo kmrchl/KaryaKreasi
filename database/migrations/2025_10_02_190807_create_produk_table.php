@@ -12,12 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('produk', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_produk');
+            $table->unsignedBigInteger('id_kategori');
             $table->string('produk');
             $table->text('deskripsi')->nullable();
             $table->decimal('harga', 12, 2)->default(0);
             $table->string('gambar')->nullable(); // path atau URL
             $table->timestamps();
+
+            $table->foreign('id_kategori')
+              ->references('id_kategori')
+              ->on('kategori')
+              ->onDelete('cascade');
         });
     }
 

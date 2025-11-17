@@ -30,5 +30,5 @@ Route::post('/produk', [ProductController::class, 'store']);
 // route login (tidak perlu auth)
 Route::post('/login', [AuthController::class, 'login']);
 
-
+//Kategori
 Route::apiResource('kategori', KategoriController::class);

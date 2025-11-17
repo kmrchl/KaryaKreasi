@@ -18,4 +18,11 @@ Route::prefix('admin')
         Route::get('/produk', fn() => Inertia::render('Dashboard/Produk/Index'));
         Route::get('/produk/create', fn() => Inertia::render('Dashboard/Produk/Create'));
         Route::get('/produk/{id}/edit', fn() => Inertia::render('Dashboard/Produk/Edit'));
+        
+        
+        Route::get('/kategori', fn() => Inertia::render('Dashboard/kategori/index'));
+        Route::get('/kategori/create', fn() => Inertia::render('Dashboard/kategori/create'));
+
+        Route::get('/artikel', fn() => Inertia::render('Dashboard/Artikel/Index'));
+        Route::get('/artikel/create', fn() => Inertia::render('Dashboard/Artikel/Create'));
     });

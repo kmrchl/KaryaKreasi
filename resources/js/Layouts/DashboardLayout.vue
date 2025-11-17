@@ -10,22 +10,6 @@ const logout = () => {
     onSuccess: () => router.visit('/login')
   })
 }
-// const logout = async () => {
-//   const token = localStorage.getItem('token')
-
-//   try {
-//     await axios.post('/logout', {}, {
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     })
-//   } catch (e) {
-//     console.error(e)
-//   }
-
-//   localStorage.removeItem('token')
-//   router.visit('/login')
-// }
 </script>
 
 <template>
@@ -37,6 +21,7 @@ const logout = () => {
       <nav class="space-y-2">
         <Link href="/admin/dashboard" class="block px-4 py-2 rounded hover:bg-gray-700">Dashboard</Link>
         <Link href="/admin/produk" class="block px-4 py-2 rounded hover:bg-gray-700">Katalog Produk</Link>
+        <Link href="/admin/artikel" class="block px-4 py-2 rounded hover:bg-gray-700">Artikel</Link>
         <Link href="/admin/produk/create" class="block px-4 py-2 rounded hover:bg-gray-700">Tambah Produk</Link>
       </nav>
 

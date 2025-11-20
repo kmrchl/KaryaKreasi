@@ -14,6 +14,13 @@ const routes = [
     component: Dashboard,
     meta: { requiresAuth: true },
   },
+
+  {
+    path: '/admin/kategori/:id/edit',
+    name: 'kategori.edit',
+    component: () => import('../Pages/Dashboard/kategori/edit.vue'),
+    meta: { requiresAuth: true },
+  }
 ]
 
 const router = createRouter({

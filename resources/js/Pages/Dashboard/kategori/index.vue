@@ -6,14 +6,13 @@ import DashboardLayout from '@/Layouts/DashboardLayout.vue'
 const kategorilist = ref([])
 
 const getKategori = async () => {
-  const res = await axios.get('/kategori')
-  kategorilist
-.value = res.data.data // karena kamu pakai ProductResource::collection()
+  const res = await axios.get('/api/kategori')
+  kategorilist.value = res.data.data // karena kamu pakai ProductResource::collection()
 }
 
 const deleteProduk = async (id) => {
   if (confirm('Yakin mau hapus kategori ini?')) {
-    await axios.delete(`/kategori/${id}`)
+    await axios.delete(`/api/kategori/${id}`)
     await getKategori()
   }
 }
@@ -41,12 +40,17 @@ onMounted(getKategori)
         </thead>
         <tbody>
           <tr v-for="p in kategorilist
-        " :key="p.id" class="border-b hover:bg-gray-50">
+        " :key="p.id_kategori" class="border-b hover:bg-gray-50">
             <td class="p-3">{{ p.kategori }}</td>
             <td class="p-3">{{ p.deskripsi }}</td>
             <td class="p-3 text-center space-x-2">
-              <a :href="`/admin/kategori/${p.id}/edit`" class="text-blue-600 hover:underline">Edit</a>
-              <button @click="deleteProduk(p.id)" class="text-red-600 hover:underline">Hapus</button>
+              <a
+              :href="`/admin/kategori/${p.id_kategori}/edit`"
+              class="text-blue-600 hover:underline cursor-pointer"
+            >
+              Edit
+            </a>
+              <button @click="deleteProduk(p.id_kategori)" class="text-red-600 hover:underline">Hapus</button>
             </td>
           </tr>
         </tbody>

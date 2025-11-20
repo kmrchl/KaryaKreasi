@@ -1,10 +1,29 @@
 <template>
   <AppLayout>
-    <section class="mt-10">
-      <h2 class="text-3xl font-bold mb-6 text-center text-indigo-700">
-        Our Product Catalog
-      </h2>
+    <!-- Hero Section -->
+    <section class="py-3 px-6 md:px-20 bg-[#EDE1D1]" style="font-family: 'Inter', sans-serif;">
+      <div class="max-w-7xl mx-auto">
+        <div class="relative rounded-2xl overflow-hidden bg-[#D6C8B6] h-[550px] md:h-[650px]">
+          <img 
+            src="@/assets/bed.png" 
+            alt="Arthana Karsa - Interior Design"
+            class="w-full h-full object-cover"
+          >
+          <div class="absolute inset-0 flex justify-center items-center">
+            <div class="text-center px-8 md:px-16 max-w-4xl">
+              <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+                Our Catalog Products
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <section class="py-4 px-6 md:px-20 bg-[#EDE1D1]" style="font-family: 'Inter', sans-serif;">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-[2.7rem] mb-12 font-semibold text-center text-black drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)]">Desain Sesuai Kebutuhan</h2>
+  
       <div v-if="loading" class="text-center py-10">Loading products…</div>
 
       <div v-else-if="error" class="text-center text-red-500 py-10">
@@ -31,6 +50,7 @@
             {{ formatPrice(p.harga) }}
           </p>
         </div>
+      </div>
       </div>
     </section>
   </AppLayout>

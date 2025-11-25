@@ -6,14 +6,24 @@ import DashboardLayout from '@/Layouts/DashboardLayout.vue'
 const kategorilist = ref([])
 
 const getKategori = async () => {
-  const res = await axios.get('/api/kategori')
-  kategorilist.value = res.data.data // karena kamu pakai ProductResource::collection()
+  try {
+    // baseURL sudah '/api' di app.js, jadi cukup 'kategori'
+    const res = await axios.get('/kategori')
+    kategorilist.value = res.data.data // sesuai response Postman-mu
+  } catch (err) {
+    console.error('Gagal ambil kategori:', err)
+    // optional: tampilkan notifikasi user
+  }
 }
 
 const deleteProduk = async (id) => {
   if (confirm('Yakin mau hapus kategori ini?')) {
-    await axios.delete(`/api/kategori/${id}`)
-    await getKategori()
+    try {
+      await axios.delete(`/kategori/${id}`)
+      await getKategori()
+    } catch (err) {
+      console.error('Gagal hapus kategori:', err)
+    }
   }
 }
 

@@ -1,45 +1,44 @@
 <script setup>
-import DashboardLayout from '@/Layouts/DashboardLayout.vue'
 import { ref, onMounted } from 'vue'
+import { usePage } from '@inertiajs/vue3'
 import axios from 'axios'
-import { useRoute } from 'vue-router'
+import DashboardLayout from '@/Layouts/DashboardLayout.vue'
 
-const route = useRoute()
-const id_kategori = route.params.id_kategori
+const page = usePage()
+const id_kategori = page.props.id_kategori
 
 const form = ref({
   kategori: '',
   deskripsi: '',
 })
 
-// Ambil data lama kategori
 const loadKategori = async () => {
   try {
-    const res = await axios.get(`/api/kategori/${id_kategori}`)
+    const res = await axios.get(`/kategori/${id_kategori}`)
     form.value.kategori = res.data.data.kategori
     form.value.deskripsi = res.data.data.deskripsi
   } catch (err) {
-    alert('Gagal memuat data kategori 😵‍💫')
+    console.error(err)
+    alert('Gagal memuat data kategori')
   }
 }
 
 onMounted(loadKategori)
 
-// Update kategori
 const handleSubmit = async () => {
   try {
-    await axios.put(`/api/kategori/${id_kategori}`, {
+    await axios.put(`/kategori/${id_kategori}`, {
       kategori: form.value.kategori,
       deskripsi: form.value.deskripsi,
     })
-
-    alert('Kategori berhasil diperbarui! ✨')
+    alert('Berhasil update kategori!')
     window.location.href = '/admin/kategori'
   } catch (err) {
     console.error(err)
-    alert('Gagal mengupdate kategori 😭')
+    alert('Gagal update kategori')
   }
 }
+
 </script>
 
 <template>

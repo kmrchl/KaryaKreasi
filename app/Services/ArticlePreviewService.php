@@ -8,25 +8,32 @@ class ArticlePreviewService
 {
     public function fetchMeta($url)
     {
-        // Ambil HTML halaman
-        $html = @file_get_contents($url);
-        if (!$html) return null;
+        try {
+            $html = file_get_contents($url);
 
-        $crawler = new Crawler($html);
+            $crawler = new Crawler($html);
 
-        // Ambil og:title
-        $title = $crawler->filterXPath("//meta[@property='og:title']")->attr('content') ?? null;
+            $meta = [
+                'title' => $this->getMeta($crawler, 'meta[property="og:title"]', 'content')
+                    ?? $crawler->filter('title')->first()->text(''),
+                'description' => $this->getMeta($crawler, 'meta[property="og:description"]', 'content'),
+                'image' => $this->getMeta($crawler, 'meta[property="og:image"]', 'content'),
+                'url' => $url,
+                'domain' => parse_url($url, PHP_URL_HOST),
+            ];
 
-        // Ambil og:description
-        $description = $crawler->filterXPath("//meta[@property='og:description']")->attr('content') ?? null;
+            return $meta;
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
 
-        // Ambil og:image
-        $image = $crawler->filterXPath("//meta[@property='og:image']")->attr('content') ?? null;
-
-        return [
-            'title' => $title,
-            'description' => $description,
-            'image' => $image,
-        ];
+    private function getMeta($crawler, $selector, $attr)
+    {
+        try {
+            return $crawler->filter($selector)->attr($attr);
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 }

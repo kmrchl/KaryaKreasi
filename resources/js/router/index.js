@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../Pages/Auth/Login.vue'
-import Dashboard from '../Pages/Dashboard/Index.vue'
+
+// Artikel
+import ArtikelIndex from '../Pages/Dashboard/Artikel/Index.vue'
+import ArtikelCreate from '../Pages/Dashboard/Artikel/Create.vue'
+import ArtikelEdit from '../Pages/Dashboard/Artikel/Edit.vue'
 
 const routes = [
   {
@@ -8,19 +12,26 @@ const routes = [
     name: 'login',
     component: Login,
   },
-  {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: Dashboard,
-    meta: { requiresAuth: true },
-  },
 
+  // Artikel CRUD
   {
-    path: '/admin/kategori/:id/edit',
-    name: 'kategori.edit',
-    component: () => import('../Pages/Dashboard/kategori/edit.vue'),
-    meta: { requiresAuth: true },
-  }
+    path: '/admin/artikel',
+    name: 'artikel.index',
+    component: ArtikelIndex,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/admin/artikel/create',
+    name: 'artikel.create',
+    component: ArtikelCreate,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/admin/artikel/edit/:id',
+    name: 'artikel.edit',
+    component: ArtikelEdit,
+    meta: { requiresAuth: true }
+  },
 ]
 
 const router = createRouter({
@@ -28,11 +39,9 @@ const router = createRouter({
   routes,
 })
 
-// Middleware check
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token')
-
-  if (to.meta.requiresAuth && !token) {
+  if (to.meta?.requiresAuth && !token) {
     next('/login')
   } else {
     next()

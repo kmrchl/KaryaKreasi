@@ -69,7 +69,7 @@ async function fetchProducts() {
   loading.value = true
   error.value = null
   try {
-    const res = await axios.get('http://127.0.0.1:8000/api/produk')
+    const res = await axios.get('/produk')
     products.value = res.data?.data ?? res.data
   } catch (err) {
     error.value = 'Failed to load products 😢'

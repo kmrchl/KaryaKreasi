@@ -11,9 +11,15 @@ class ProductController extends Controller
 
 {
     // GET /api/products
-    public function index()
+    public function index(Request $request)
     {
-        return ProductResource::collection(Produk::latest()->get());
+        $query = Produk::query();
+
+        if ($request->has('search') && $request->search != '') {
+            $query->where('produk', 'like', '%'.$request->search.'%');
+        }
+
+        return ProductResource::collection($query->latest()->get());
     }
 
     // GET /api/products/{produk}
@@ -26,7 +32,7 @@ class ProductController extends Controller
         }
 
         return new ProductResource($produk);
-}
+    }
 
     // POST /api/products
     public function store(Request $request)

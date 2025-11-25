@@ -12,60 +12,47 @@
             <p>Interior & Jasa Custom Furnitur</p>
           </div>
         </div>
-        <div class="search-bar">
-          <input type="text" placeholder="Search...">
-          <button class="search-btn">
+        <div class="search-bar flex items-center">
+          <input type="text" v-model="searchQuery" @keyup.enter="searchProducts" placeholder="Search..."
+            class="border rounded-l px-4 py-2 w-full" />
+          <button @click="searchProducts"
+            class="search-btn bg-[#C4A57B] text-white px-4 py-2 rounded-r hover:bg-[#B89968] transition-colors">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
-              <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" />
+              <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
             </svg>
           </button>
         </div>
       </div>
     </div>
-    
+
     <!-- Bottom Row: Menu -->
     <div class="navbar-bottom">
       <div class="container">
         <ul class="nav-links">
           <li>
-            <Link 
-              :href="route('home')" 
-              :class="{ 'active': isActive('home') }"
-            >
-              HOME
+            <Link :href="route('home')" :class="{ 'active': isActive('home') }">
+            HOME
             </Link>
           </li>
           <li>
-            <Link 
-              :href="route('about')" 
-              :class="{ 'active': isActive('about') }"
-            >
-              ABOUT
+            <Link :href="route('about')" :class="{ 'active': isActive('about') }">
+            ABOUT
             </Link>
           </li>
           <li>
-            <Link 
-              :href="route('products')" 
-              :class="{ 'active': isActive('products') }"
-            >
-              PRODUCTS
+            <Link :href="route('products')" :class="{ 'active': isActive('products') }">
+            PRODUCTS
             </Link>
           </li>
           <li>
-            <Link 
-              :href="route('project')" 
-              :class="{ 'active': isActive('project') }"
-            >
-              PROJECT
+            <Link :href="route('project')" :class="{ 'active': isActive('project') }">
+            PROJECT
             </Link>
           </li>
           <li>
-            <Link 
-              :href="route('contact')" 
-              :class="{ 'active': isActive('contact') }"
-            >
-              CONTACT
+            <Link :href="route('contact')" :class="{ 'active': isActive('contact') }">
+            CONTACT
             </Link>
           </li>
         </ul>
@@ -78,6 +65,29 @@
 import { Link } from '@inertiajs/vue3'
 import { usePage } from '@inertiajs/vue3'
 import { computed } from 'vue'
+import { ref, watch } from 'vue'
+import axios from 'axios'
+
+const products = ref([])
+const searchQuery = ref('')
+const searchResults = ref([]) // bisa buat nampilkan di dropdown jika mau
+
+
+// Search
+// Fungsi untuk search produk
+const searchProducts = async () => {
+  try {
+    const response = await axios.get('/api/produk', {
+      params: {
+        search: searchQuery.value
+      }
+    })
+    products.value = response.data.data || response.data // Sesuaikan dengan struktur API-mu
+    console.log('Hasil search:', products.value)
+  } catch (error) {
+    console.error('Gagal search produk:', error)
+  }
+}
 
 const page = usePage()
 
@@ -233,16 +243,16 @@ const isActive = (routeName) => {
     flex-direction: column;
     gap: 20px;
   }
-  
+
   .search-bar {
     width: 100%;
     margin-left: 0;
   }
-  
+
   .nav-links {
     gap: 40px;
   }
-  
+
   .nav-links a {
     font-size: 11px;
   }
@@ -252,24 +262,24 @@ const isActive = (routeName) => {
   .navbar-top .container {
     padding: 0 15px;
   }
-  
+
   .navbar-bottom .container {
     padding: 0 15px;
   }
-  
+
   .brand-text h1 {
     font-size: 18px;
   }
-  
+
   .brand-text p {
     font-size: 10px;
   }
-  
+
   .logo-circle {
     width: 40px;
     height: 40px;
   }
-  
+
   .nav-links {
     gap: 25px;
     overflow-x: auto;
@@ -277,11 +287,11 @@ const isActive = (routeName) => {
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
-  
+
   .nav-links::-webkit-scrollbar {
     display: none;
   }
-  
+
   .nav-links a {
     font-size: 11px;
     white-space: nowrap;
@@ -293,37 +303,37 @@ const isActive = (routeName) => {
   .navbar-top {
     padding: 10px 0;
   }
-  
+
   .brand-section {
     gap: 10px;
   }
-  
+
   .brand-text h1 {
     font-size: 16px;
   }
-  
+
   .brand-text p {
     font-size: 9px;
   }
-  
+
   .logo-circle {
     width: 35px;
     height: 35px;
   }
-  
+
   .search-bar {
     padding: 5px 10px;
   }
-  
+
   .search-bar input {
     font-size: 13px;
     padding: 5px 12px;
   }
-  
+
   .nav-links {
     gap: 20px;
   }
-  
+
   .nav-links a {
     font-size: 10px;
     padding: 10px 0;

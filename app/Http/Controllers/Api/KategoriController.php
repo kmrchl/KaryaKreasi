@@ -28,12 +28,12 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_kategori' => 'required|string|max:255',
+            'kategori' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
         ]);
 
         $kategori = Kategori::create([
-            'nama_kategori' => $request->nama_kategori,
+            'kategori' => $request->kategori,
             'deskripsi' => $request->deskripsi,
         ]);
 
@@ -81,12 +81,12 @@ class KategoriController extends Controller
         }
 
         $request->validate([
-            'nama_kategori' => 'required|string|max:255',
+            'kategori' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
         ]);
 
         $kategori->update([
-            'nama_kategori' => $request->nama_kategori,
+            'kategori' => $request->kategori,
             'deskripsi' => $request->deskripsi,
         ]);
 

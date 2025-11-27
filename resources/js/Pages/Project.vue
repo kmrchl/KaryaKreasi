@@ -18,7 +18,7 @@
                 Beberapa projek yang telah kami kerjakan berhasil membuat customer puas.
               </p>
               <div class="flex gap-3 py-8">
-                <button class="bg-white text-[#2C1810] px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors duration-300">
+                <button @click="redirectToWA" class="bg-white text-[#2C1810] px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors duration-300">
                   Konsultasi Gratis
                 </button>
               </div>
@@ -91,5 +91,11 @@
 </template>
 
 <script setup>
+
+// Redirect WA
+const redirectToWA = () => {
+  window.open("https://wa.me/6281234567890", "_blank")
+}
+
 import AppLayout from '@/Layouts/App.vue'
 </script>
